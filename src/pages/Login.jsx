@@ -10,44 +10,44 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import axios from 'axios';
 
 /* Parte logica
 Todavia no esa funcionado el login porque se debe habilitar el cors*/ 
 async function LoginUser(credentials) {
   try {
-    const response = await fetch('http://caniob.org:9000/api/token', {
-      method: 'POST',
-      mode: 'no-cors',
+    const response = await axios.post('http://caniob.org:9000/api/token', credentials, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify(credentials),
+      // Agrega cualquier configuración adicional aquí si es necesario
     });
-    
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} - ${response.statusText}`);
-    }
 
-    return response.json();
+    return response.data;
   } catch (error) {
-    console.error('Error al realizar la solicitud fetch:', error);
+    console.error('Error al realizar la solicitud Axios:', error);
     throw error;
   }
 }
 
 const Login = ({setToken}) => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await LoginUser({
-      username, 
-      password
-    });
-    setToken(token);
-    console.log(token);
+    try {
+      const token = await LoginUser({
+        username,
+        password,
+      });
+
+      setToken(token);
+      console.log(token);
+    } catch (error) {
+      // Manejar el error según sea necesario
+    }
   };
   /* parte grafica */
   return (
