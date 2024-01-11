@@ -13,12 +13,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from 'axios';
 
 
-// Configurar un interceptor de solicitud
-axios.interceptors.request.use(request => {
-  console.log('Starting Request', request);
-  return request;
-});
-
 // Configurar un interceptor de respuesta
 axios.interceptors.request.use(request => {
   console.log('Starting Request', request);

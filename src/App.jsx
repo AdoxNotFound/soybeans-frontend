@@ -3,8 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 /*import SignInSide from './components/SignInSide';*/
 import Dashboard from './pages/Dashboard';
 import HomePage from './pages/HomePage';
+import AutoLogout from './components/AutoLogout';
 
 function App() {
+
+  const logoutTime = 2 * 60 * 1000;
+
   return (
     <div>
       {/* <SignInSide/> */}
@@ -14,6 +18,7 @@ function App() {
             <Route path='/Dashboard' element={<HomePage/>} />
           </Routes>
         </BrowserRouter>
+        <AutoLogout logoutTime={logoutTime}/>
     </div>
   );
 };
