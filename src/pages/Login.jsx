@@ -12,16 +12,39 @@ import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from 'axios';
 
+
+// Configurar un interceptor de solicitud
+axios.interceptors.request.use(request => {
+  console.log('Starting Request', request);
+  return request;
+});
+
+// Configurar un interceptor de respuesta
+axios.interceptors.request.use(request => {
+  console.log('Starting Request', request);
+  return request;
+}, error => {
+  console.error('Axios Request Error:', error);
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+  console.log('Response:', response);
+  return response;
+}, error => {
+  console.error('Axios Response Error:', error);
+  return Promise.reject(error);
+});
+
 /* Parte logica
 Todavia no esa funcionado el login porque se debe habilitar el cors*/ 
 async function LoginUser(credentials) {
   try {
-    const response = await axios.post('http://caniob.org:9000/api/token', credentials, {
+    const response = await axios.post('http://ec2-3-141-44-202.us-east-2.compute.amazonaws.com:8000/api/token', credentials, {
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      // Agrega cualquier configuración adicional aquí si es necesario
+      // mode: 'no-cors' // Puedes comentar o descomentar según sea necesario
     });
 
     return response.data;

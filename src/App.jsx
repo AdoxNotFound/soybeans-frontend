@@ -10,8 +10,8 @@ function App() {
       {/* <SignInSide/> */}
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<HomePage/>} />
-            <Route path='/Dashboard' element={<Dashboard/>} />
+            <Route path='/' element={<Dashboard/>} />
+            <Route path='/Dashboard' element={<HomePage/>} />
           </Routes>
         </BrowserRouter>
     </div>
