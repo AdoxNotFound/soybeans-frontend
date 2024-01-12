@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
-import Login from './Login'
 import useToken from '../app/useToken'
+import LoginPage from './LoginPage';
 
 const Dashboard = () => {
   const {tokens, setTokens, clearTokens } = useToken(); 
@@ -8,7 +8,7 @@ const Dashboard = () => {
   //boton de logout, se debe agregar a parte, mas adelate
  
   if (!tokens) {
-    {return <Login setToken={setTokens}/>}
+    {return <LoginPage setToken={setTokens}/>}
   }
   return (
     <div>
