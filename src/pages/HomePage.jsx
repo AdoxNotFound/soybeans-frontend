@@ -8,8 +8,17 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import useToken from '../app/useToken';
+import LoginPage from './LoginPage';
+import Paper from '@mui/material/Paper';
 
 const HomePage = () => {
+  const {tokens, setTokens, clearTokens } = useToken(); 
+
+  if (!tokens) {
+    {return <LoginPage setToken={setTokens}/>}
+  }
+
   return (
     <div>
       <CssBaseline/>
@@ -23,7 +32,7 @@ const HomePage = () => {
         <Typography variant='h5' component='h5'>
           Seleccione la gestión
         </Typography>
-        <FormControl fullWidth sx={{width: 150}}>
+        <FormControl fullWidth sx={{width: 150, marginY: 3}}>
           <InputLabel id="demo-simple-select-label">Gestión</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -36,32 +45,12 @@ const HomePage = () => {
             </Select>
           </FormControl>
         <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
+          Descripcioon de la tabla
         </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Paper>
+          
+        </Paper>
+        <button onClick={clearTokens}>Cerrar sesion</button>
       </Box>
     </div>
   );
