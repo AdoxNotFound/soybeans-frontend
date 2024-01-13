@@ -10,7 +10,8 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import useToken from '../app/useToken';
 import LoginPage from './LoginPage';
-import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import BasicTable from '../components/common/Table';
 
 const HomePage = () => {
   const {tokens, setTokens, clearTokens } = useToken(); 
@@ -45,12 +46,11 @@ const HomePage = () => {
             </Select>
           </FormControl>
         <Typography paragraph>
-          Descripcioon de la tabla
+          Descripción de la tabla
         </Typography>
-        <Paper>
-          
-        </Paper>
-        <button onClick={clearTokens}>Cerrar sesion</button>
+          <BasicTable/>
+          <Button variant="contained" sx={{margin: 10}}>Ingresar nuevo formulario</Button>
+        <Button onClick={clearTokens}>Cerrar sesion</Button>
       </Box>
     </div>
   );
