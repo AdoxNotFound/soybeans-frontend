@@ -19,13 +19,13 @@ axios.interceptors.request.use(request => {
 
 export const loginUser = async (credentials) => {
   try {
-    const response = await axios.post('http://ec2-3-141-44-202.us-east-2.compute.amazonaws.com:8000/api/token', credentials, {
+    const response = await axios.post('https://apicaniob.caniob.org/api/auth/login', credentials, {
       headers: {
         'Content-Type': 'application/json'
       },
     });
 
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Error al realizar la solicitud Axios:', error);
     throw error;

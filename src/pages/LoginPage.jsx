@@ -13,15 +13,29 @@ const LoginPage = ({ setToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = await loginUser({
+      const response = await loginUser({
         username,
         password,
       });
 
-      setToken(token);
-      console.log(token);
+      if (response && response.data) {
+        const { data } = response;
+        
+        if (data.data.token && data.data.user) {
+          console.log('User:', data.data.user);
+          console.log('Token:', data.data.token);
+  
+          // Guarda la sesión
+          setToken(data.data.token);
+        } else {
+          console.error('La respuesta no contiene token o user.');
+        }
+      } else {
+        console.error('La respuesta no es válida.');
+      }
     } catch (error) {
       // Manejar el error según sea necesario
+      console.error('Error al realizar la solicitud:', error);
     }
   };
 
