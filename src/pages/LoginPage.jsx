@@ -6,9 +6,11 @@ import BackgroundImage from '../components/layout/BackgroundImage';
 import LoginForm from '../components/loginForm/LoginForm';
 import useLoginForm from '../components/loginForm/useLoginForm';
 import { loginUser } from '../services/api';
+import { useApiContext } from '../components/context/ApiContext';
 
 const LoginPage = ({ setToken }) => {
   const { username, setUsername, password, setPassword } = useLoginForm();
+  const { storeApiResponse } = useApiContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +35,9 @@ const LoginPage = ({ setToken }) => {
       } else {
         console.error('La respuesta no es válida.');
       }
+
+      storeApiResponse(response);
+
     } catch (error) {
       // Manejar el error según sea necesario
       console.error('Error al realizar la solicitud:', error);
