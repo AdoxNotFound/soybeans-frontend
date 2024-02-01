@@ -10,7 +10,7 @@ import { useApiContext } from '../components/context/ApiContext';
 
 const LoginPage = ({ setToken }) => {
   const { username, setUsername, password, setPassword } = useLoginForm();
-  const { storeApiResponse } = useApiContext();
+  const { updateSettings } = useApiContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +29,15 @@ const LoginPage = ({ setToken }) => {
   
           // Guarda la sesión
           setToken(data.data.token);
+
+          // guardardo de los parametros iniciales
+          updateSettings({
+            token: data.data.token,
+            token_type: data.data.token_type,
+            username: data.data.user.username,
+            role: data.data.user.role,
+          });
+
         } else {
           console.error('La respuesta no contiene token o user.');
         }
@@ -36,7 +45,7 @@ const LoginPage = ({ setToken }) => {
         console.error('La respuesta no es válida.');
       }
 
-      storeApiResponse(response);
+
 
     } catch (error) {
       // Manejar el error según sea necesario

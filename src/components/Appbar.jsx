@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { useApiContext } from './context/ApiContext';
 
 const drawerWidth = 240;
 
@@ -79,6 +80,8 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const { settings} = useApiContext();
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -96,7 +99,7 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Sistema de registro de formularios quincenales
           </Typography>
-          <Typography sx={{marginRight: 1}}>Industria 1</Typography>
+          <Typography sx={{marginRight: 1}}>{settings.username}</Typography>
           <AccountCircle />
         </Toolbar>
       </AppBar>

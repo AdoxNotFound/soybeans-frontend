@@ -3,14 +3,19 @@ import { createContext, useContext, useState } from "react";
 const ApiContext = createContext();
 
 const ApiProvider = ({ children }) => {
-    const [apiResponse, setApiResponse] = useState(null);
+    const [settings, setSettings] = useState({
+            token: 'empty',
+            token_type: 'empty',
+            username: 'user',
+            role: 'user', 
+        });
 
-    const storeApiResponse = (response) => {
-        setApiResponse(response.data);
+    const updateSettings = (newSettings) => {
+        setSettings({...settings, ...newSettings});
     };
 
     return (
-        <ApiContext.Provider value={{ apiResponse, storeApiResponse}}>
+        <ApiContext.Provider value={{ settings, updateSettings}}>
             {children}
         </ApiContext.Provider>
     );
