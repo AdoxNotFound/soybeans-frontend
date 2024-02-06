@@ -25,7 +25,7 @@ const LoginPage = ({ setToken }) => {
         
         if (data.data.token && data.data.user) {
           console.log('User:', data.data.user);
-          console.log('Token:', data.data.token);
+          // console.log('Token:', data.data.token);
   
           // Guarda la sesión
           setToken(data.data.token);
@@ -44,8 +44,6 @@ const LoginPage = ({ setToken }) => {
       } else {
         console.error('La respuesta no es válida.');
       }
-
-
 
     } catch (error) {
       // Manejar el error según sea necesario
