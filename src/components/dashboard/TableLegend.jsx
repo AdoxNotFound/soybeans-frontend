@@ -7,10 +7,10 @@ import { Typography } from '@mui/material';
 // Define los datos de la leyenda como un array de objetos
 const legendData = [
     { icon: <Declared />, label: 'Quincena declarada' },
-    { icon: <NotDeclared />, label: 'Quincena no declarada' },
+    { icon: <NotDeclared />, label: 'Quincena sin declarar' },
     { icon: <LateDeclared />, label: 'Quincena declarada fuera de tiempo' },
     { icon: <Blocked />, label: 'Quincena no disponible' },
-    { icon: <DeclarationEnabled />, label: 'Quincena vigente' },
+    { icon: <DeclarationEnabled />, label: 'Quincena en curso' },
     { icon: <Observed />, label: 'Quincena con observación' },
 ];
 

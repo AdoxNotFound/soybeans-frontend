@@ -1,23 +1,26 @@
-import * as React from 'react';
+import React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
+import Dataset from '../layout/DataExample';
 
-export default function BasicBars({ title }) {
+export default function BasicBars({xAxisLabel, yAxisLabel, 
+  seriesDataKey, seriesLabel}) {
+
+  const valueFormatter = (value) => `${value} TM`; // Puedes modificar esto según tus necesidades
+
   return (
     <Box sx={{mx: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
         <Paper elevation={3}
             sx={{mb: 2, mx: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-            <Typography variant='body2' component='body2' sx={{mt: 2}}>
-                {title}
-            </Typography>
             <BarChart
-                xAxis={[{ scaleType: 'band', data: ['group A', 'group B', 'group C', 'group D'] }]}
-                series={[{ data: [4, 3, 5, 1] }, { data: [1, 6, 3, 5] }, { data: [2, 5, 6, 4] }, { data: [5, 4, 2, 2]}]}
-                width={500}
-                height={300}
-                yAxis={[{ label: 'USD/TM'}]}
+              dataset={Dataset}
+              yAxis={[{ label: yAxisLabel  }]}
+              series={[{ dataKey: seriesDataKey, label: seriesLabel, valueFormatter, color: 'brown' }]}
+              layout="vertical"
+              xAxis={[{ scaleType: 'band', dataKey: xAxisLabel}]}
+              width={600}
+              height={300}
             />
         </Paper>
     </Box>

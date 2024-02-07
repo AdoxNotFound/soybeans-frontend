@@ -18,8 +18,16 @@ const IndustryDashboard = () => {
             <Grid container spacing={1}> {/* Utiliza Grid container para crear la estructura de dos columnas */}
                 {/* Primera columna */}
                 <Grid item xs={12} md={6}> {/* Esto ocupará 6 columnas de un total de 12, es decir, la mitad */}
-                    <BasicBars title='Grano Acopiado' />
-                    <BasicBars title='Grano Cerrado' />
+                    <BasicBars        
+                        yAxisLabel="(TM)"
+                        xAxisLabel="Periodo"
+                        seriesDataKey="Acopio_TM"
+                        seriesLabel="Grano acopiado" />
+                    <BasicBars 
+                        yAxisLabel="(TM)"
+                        xAxisLabel="Periodo"
+                        seriesDataKey="Grano_recibido_TM"
+                        seriesLabel="Grano recibido"/>
                 </Grid>
                 {/* Segunda columna */}
                 <Grid item xs={12} md={6}> {/* Esto ocupará 6 columnas de un total de 12, es decir, la mitad */}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,67 +6,131 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
+import Dataset from '../layout/DataExample';
 import { Declared, NotDeclared, LateDeclared, Blocked, DeclarationEnabled, Observed } from './Icons';
 
-function createData(name, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic) {
-  return { name, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic};
-}
-
-const rows = [
-  createData(1, <Declared/>, <NotDeclared/>, <Declared/>, <Declared/>,
-  <Declared/>, <NotDeclared/>, <Declared/>, <Declared/>,
-  <DeclarationEnabled/>, <Blocked/>, <Blocked/>, <Blocked/>),
-  createData(2, <Declared/>, <Declared/>, <LateDeclared/>, <Declared/>,
-  <Declared/>, <Declared/>, <LateDeclared/>, <Declared/>,
-  <Blocked/>, <Blocked/>, <Blocked/>, <Blocked/>),
-];
+const statusIcons = {
+  "Declarada": <Declared />,
+  "Sin Declarar": <NotDeclared />,
+  "Fuera de Tiempo": <LateDeclared />,
+  "No Disponible": <Blocked />,
+  "En Curso": <DeclarationEnabled />,
+  "Observada": <Observed />
+};
 
 export default function BasicTable() {
-  return (   
-    <TableContainer component={Paper} elevation={3} sx={{width: '100%', maxWidth: 750}}>
+  const [rows, setRows] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [popperData, setPopperData] = useState(null);
+
+  useEffect(() => {
+    // Crear dos filas para las dos quincenas
+    const firstRow = createRow(1, Dataset.filter(item => item.quincena === 1));
+    const secondRow = createRow(2, Dataset.filter(item => item.quincena === 2));
+    setRows([firstRow, secondRow]);
+  }, []);
+
+  const createRow = (quincena, data) => {
+    //esta función sirve para armar la información del popper, pero se debe modificar cuando los formularios de la empresa sean diferentes
+    const rowData = { quincena };
+    for (let i = 1; i <= 12; i++) {
+      const monthData = data.find(item => item.mes === i);
+      if (monthData) {
+        const acopio = monthData.Acopio_TM !== null ? monthData.Acopio_TM.toString() : null;
+        const granoRecibido = monthData.Grano_recibido_TM !== null ? monthData.Grano_recibido_TM.toString() : null;
+        rowData[`mes${i}`] = { estado: monthData.Estado, quincena, mes: i, acopio, granoRecibido };
+      } else {
+        rowData[`mes${i}`] = { estado: '', quincena, mes: i };
+      }
+    }
+    return rowData;
+  };
+
+  const handleMouseEnter = (event, data) => {
+    setAnchorEl(event.currentTarget);
+    setPopperData(data);
+  
+  };
+
+  const handleMouseLeave = () => {
+    // Aquí puedes realizar cualquier acción cuando se retira el mouse de una celda
+    setAnchorEl(null);
+    setPopperData(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  return (
+    <TableContainer component={Paper} elevation={3} sx={{ width: '100%', maxWidth: 750 }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Quincena</TableCell>
-            <TableCell align="right">Ene</TableCell>
-            <TableCell align="right">Feb</TableCell>
-            <TableCell align="right">Mar</TableCell>
-            <TableCell align="right">Abr</TableCell>
-            <TableCell align="right">May</TableCell>
-            <TableCell align="right">Jun</TableCell>
-            <TableCell align="right">Jul</TableCell>
-            <TableCell align="right">Ago</TableCell>
-            <TableCell align="right">Sep</TableCell>
-            <TableCell align="right">Oct</TableCell>
-            <TableCell align="right">Nov</TableCell>
-            <TableCell align="right">Dic</TableCell>
+            <TableCell>Mes 1</TableCell>
+            <TableCell>Mes 2</TableCell>
+            <TableCell>Mes 3</TableCell>
+            <TableCell>Mes 4</TableCell>
+            <TableCell>Mes 5</TableCell>
+            <TableCell>Mes 6</TableCell>
+            <TableCell>Mes 7</TableCell>
+            <TableCell>Mes 8</TableCell>
+            <TableCell>Mes 9</TableCell>
+            <TableCell>Mes 10</TableCell>
+            <TableCell>Mes 11</TableCell>
+            <TableCell>Mes 12</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, rowIndex) => (
             <TableRow
-              key={row.name}
+              key={rowIndex}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.quincena}
               </TableCell>
-              <TableCell align="right">{row.ene}</TableCell>
-              <TableCell align="right">{row.feb}</TableCell>
-              <TableCell align="right">{row.mar}</TableCell>
-              <TableCell align="right">{row.abr}</TableCell>
-              <TableCell align="right">{row.may}</TableCell>
-              <TableCell align="right">{row.jun}</TableCell>
-              <TableCell align="right">{row.jul}</TableCell>
-              <TableCell align="right">{row.ago}</TableCell>
-              <TableCell align="right">{row.sep}</TableCell>
-              <TableCell align="right">{row.oct}</TableCell>
-              <TableCell align="right">{row.nov}</TableCell>
-              <TableCell align="right">{row.dic}</TableCell>
+              {Object.values(row).slice(1).map((data, index) => (
+                <TableCell
+                  key={`${rowIndex}-${index}`}
+                  align="right"
+                  onMouseEnter={(event) => handleMouseEnter(event, data)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                    {statusIcons[data.estado]}
+                  </TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <Popper
+        open={open}
+        anchorEl={anchorEl}
+        placement="bottom"
+        transition
+        disablePortal
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper>
+              {popperData && (
+                <Typography sx={{ p: 2 }}>
+                  {`Quincena ${popperData.quincena}, Mes ${popperData.mes}`}
+              {popperData.estado && <Typography variant="body2">{`Estado: ${popperData.estado}`}</Typography>}
+              {/* Aquí puedes agregar más información según tus necesidades */}
+              {popperData.acopio && <Typography variant="body2">{`Acopio: ${popperData.acopio} TM`}</Typography>}
+              {popperData.granoRecibido && <Typography variant="body2">{`Grano Recibido: ${popperData.granoRecibido} TM`}</Typography>}
+              {/* Agrega más campos de acuerdo a tus necesidades */}
+            </Typography>
+              )}
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
+
     </TableContainer>
   );
 }
