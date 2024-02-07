@@ -19,8 +19,8 @@ import ListItemText from '@mui/material/ListItemText';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useApiContext } from './context/ApiContext';
-import Dashboard from '../pages/Dashboard';
+import { useApiContext } from '../context/ApiContext';
+import IndustryDashboard from '../dashboard/IndustryDashboard';
 
 const drawerWidth = 240;
 
@@ -139,7 +139,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-          <Dashboard />
+          <IndustryDashboard />
       </Main>
     </Box>
   );

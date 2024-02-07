@@ -1,6 +1,6 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
-import ButtonAppBar from '../components/Appbar';
+import ButtonAppBar from '../components/common/Appbar';
 import useToken from '../app/useToken';
 import LoginPage from './LoginPage';
 

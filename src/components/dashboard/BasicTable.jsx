@@ -6,46 +6,23 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-
-import { Uploaded, NotUploaded, CorrectionNeeded, Blocked, ActionNeeded, ActiveDays, InactiveDays, Observed } from './Icons';
-import { Typography } from '@mui/material';
+import { Declared, NotDeclared, LateDeclared, Blocked, DeclarationEnabled, Observed } from './Icons';
 
 function createData(name, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic) {
   return { name, ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic};
 }
 
 const rows = [
-  createData(1, <Uploaded/>, <NotUploaded/>, <Uploaded/>, <Uploaded/>,
-  <Uploaded/>, <NotUploaded/>, <Uploaded/>, <Uploaded/>,
-  <ActionNeeded/>, <Blocked/>, <Blocked/>, <Blocked/>),
-  createData(2, <Uploaded/>, <Uploaded/>, <CorrectionNeeded/>, <Uploaded/>,
-  <Uploaded/>, <Uploaded/>, <CorrectionNeeded/>, <Uploaded/>,
+  createData(1, <Declared/>, <NotDeclared/>, <Declared/>, <Declared/>,
+  <Declared/>, <NotDeclared/>, <Declared/>, <Declared/>,
+  <DeclarationEnabled/>, <Blocked/>, <Blocked/>, <Blocked/>),
+  createData(2, <Declared/>, <Declared/>, <LateDeclared/>, <Declared/>,
+  <Declared/>, <Declared/>, <LateDeclared/>, <Declared/>,
   <Blocked/>, <Blocked/>, <Blocked/>, <Blocked/>),
 ];
 
 export default function BasicTable() {
-  return (
-    <div>
-    {/* Contador de días */}
-    <Paper sx={{mb: 2, p: 2, maxWidth: 200}}>
-      <Typography>
-        Fecha: 06/02/2024
-      </Typography>
-      <Typography sx={{color: 'green'}}>
-        5 dias restantes
-      </Typography>
-      <Stack direction="row" spacing={1}> 
-     <InactiveDays/>
-     <InactiveDays/>
-     <ActiveDays/>
-     <ActiveDays/>
-     <ActiveDays/>
-     <ActiveDays/>
-     <ActiveDays/>
-      </Stack>
-    </Paper>
-
+  return (   
     <TableContainer component={Paper} elevation={3} sx={{width: '100%', maxWidth: 750}}>
       <Table aria-label="simple table">
         <TableHead>
@@ -91,47 +68,5 @@ export default function BasicTable() {
         </TableBody>
       </Table>
     </TableContainer>
-    
-    <Paper elevation={3} sx={{mt: 2, p: 2,  maxWidth: 300}}>
-      <Stack direction="row" spacing={1}>
-        <Uploaded/>
-      <Typography variant='body2' component='body2'>
-      Quincena declarada
-    </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <NotUploaded/>
-      <Typography variant='body2' component='body2'>
-      Quincena no declarada
-    </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <CorrectionNeeded/>
-      <Typography variant='body2' component='body2'>
-      Quincena declarada fuera de tiempo
-    </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <Blocked/>
-      <Typography variant='body2' component='body2'>
-      Quincena no disponible
-    </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <ActionNeeded/>
-      <Typography variant='body2' component='body2'>
-      Quincena vigente
-    </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <Observed/>
-      <Typography variant='body2' component='body2'>
-      Quincena con observación
-    </Typography>
-      </Stack>
-      
-    </Paper>
-
-    </div>
   );
 }
