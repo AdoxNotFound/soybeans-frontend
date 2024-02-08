@@ -6,22 +6,22 @@ import { Typography } from '@mui/material';
 
 // Define los datos de la leyenda como un array de objetos
 const legendData = [
-    { icon: <Declared />, label: 'Quincena declarada' },
-    { icon: <NotDeclared />, label: 'Quincena sin declarar' },
-    { icon: <LateDeclared />, label: 'Quincena declarada fuera de tiempo' },
-    { icon: <Blocked />, label: 'Quincena no disponible' },
-    { icon: <DeclarationEnabled />, label: 'Quincena en curso' },
-    { icon: <Observed />, label: 'Quincena con observación' },
+    { icon: <Declared size={10}/>, label: 'Quincena declarada' },
+    { icon: <NotDeclared size={10}/>, label: 'Quincena sin declarar' },
+    { icon: <LateDeclared size={10}/>, label: 'Quincena declarada fuera de tiempo' },
+    { icon: <Blocked size={10}/>, label: 'Quincena no disponible' },
+    { icon: <DeclarationEnabled size={10}/>, label: 'Quincena en curso' },
+    { icon: <Observed size={10}/>, label: 'Quincena con observación' },
 ];
 
 export default function TableLegend() {
     return (
-        <Paper elevation={3} sx={{ mt: 2, p: 2, maxWidth: 300 }}>
+        <Paper elevation={3} sx={{ mt: 2, p: 1, display: 'flex', alignItems: 'center'}}>
             {/* Itera sobre el array de datos de la leyenda */}
             {legendData.map((item, index) => (
                 <Stack key={index} direction="row" spacing={1} sx={{ marginBottom: 1 }}>
                     {item.icon}
-                    <Typography variant='body2' component='body2'>
+                    <Typography variant='body2' component='body2' sx={{ width: 100}}>
                         {item.label}
                     </Typography>
                 </Stack>

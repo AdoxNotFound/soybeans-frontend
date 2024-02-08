@@ -13,12 +13,12 @@ import Dataset from '../layout/DataExample';
 import { Declared, NotDeclared, LateDeclared, Blocked, DeclarationEnabled, Observed } from './Icons';
 
 const statusIcons = {
-  "Declarada": <Declared />,
-  "Sin Declarar": <NotDeclared />,
-  "Fuera de Tiempo": <LateDeclared />,
-  "No Disponible": <Blocked />,
-  "En Curso": <DeclarationEnabled />,
-  "Observada": <Observed />
+  "Declarada": <Declared size={20}/>,
+  "Sin Declarar": <NotDeclared size={20}/>,
+  "Fuera de Tiempo": <LateDeclared size={20}/>,
+  "No Disponible": <Blocked size={20}/>,
+  "En Curso": <DeclarationEnabled size={20}/>,
+  "Observada": <Observed size={20}/>
 };
 
 export default function BasicTable() {
@@ -64,7 +64,7 @@ export default function BasicTable() {
   const open = Boolean(anchorEl);
 
   return (
-    <TableContainer component={Paper} elevation={3} sx={{ width: '100%', maxWidth: 750 }}>
+    <TableContainer component={Paper} elevation={3} sx={{ width: '100%', maxWidth: 800 }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

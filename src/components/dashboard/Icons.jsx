@@ -2,29 +2,29 @@ import React from 'react';
 import Paper from '@mui/material/Paper';
 
 // Nuevo componente de icono con color verde
-export const Declared = () => (
-    <Paper sx={{ bgcolor: 'green', width: 20, height: 20}}></Paper>
+export const Declared = ({ size }) => (
+    <Paper sx={{ bgcolor: 'green', width: size, height: size}}></Paper>
 );
 
 // Nuevo componente de icono con color rojo
-export const NotDeclared = () => (
-  <Paper sx={{ bgcolor: 'red', width: 20, height: 20}}></Paper>
+export const NotDeclared = ({ size }) => (
+  <Paper sx={{ bgcolor: 'red', width: size, height: size}}></Paper>
 );
 
-export const LateDeclared = () => (
-    <Paper sx={{ bgcolor: 'orange', width: 20, height: 20}}></Paper>
+export const LateDeclared = ({ size }) => (
+    <Paper sx={{ bgcolor: 'orange', width: size, height: size}}></Paper>
   );
 
-export const Blocked = () => (
-    <Paper sx={{ bgcolor: 'lightslategray', width: 20, height: 20}}></Paper>
+export const Blocked = ({ size }) => (
+    <Paper sx={{ bgcolor: 'lightslategray', width: size, height: size}}></Paper>
   );
 
-export const DeclarationEnabled = () => (
-    <Paper sx={{ bgcolor: 'white', width: 20, height: 20}}></Paper>
+export const DeclarationEnabled = ({ size }) => (
+    <Paper sx={{ bgcolor: 'white', width: size, height: size}}></Paper>
   );
 
-  export const Observed = () => (
-    <Paper sx={{ bgcolor: 'lightskyblue', width: 20, height: 20}}></Paper>
+  export const Observed = ({ size }) => (
+    <Paper sx={{ bgcolor: 'lightskyblue', width: size, height: size}}></Paper>
   );
 
 export const ActiveDays = () => (
