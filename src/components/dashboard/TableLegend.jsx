@@ -16,12 +16,12 @@ const legendData = [
 
 export default function TableLegend() {
     return (
-        <Paper elevation={3} sx={{ mt: 2, p: 1, display: 'flex', alignItems: 'center'}}>
+        <Paper variant="outlined" square={false} sx={{ mt: 2, p: 1, display: 'flex', alignItems: 'center'}}>
             {/* Itera sobre el array de datos de la leyenda */}
             {legendData.map((item, index) => (
                 <Stack key={index} direction="row" spacing={1} sx={{ marginBottom: 1 }}>
                     {item.icon}
-                    <Typography variant='body2' component='body2' sx={{ width: 100}}>
+                    <Typography variant='body2' sx={{ width: 100}}>
                         {item.label}
                     </Typography>
                 </Stack>

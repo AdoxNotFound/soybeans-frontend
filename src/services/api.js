@@ -31,3 +31,33 @@ export const loginUser = async (credentials) => {
     throw error;
   }
 };
+
+export const userReconection = async (userToken) => {
+  try {
+    const response = await axios.get('https://apicaniob.caniob.org/api/auth/reconection', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userToken
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error al realizar la solicitud Axios:', error);
+    throw error;
+  }
+};
+
+export const userLogout = async(userToken) => {
+  try {
+    const response = await axios.post('https://apicaniob.caniob.org/api/auth/logout', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userToken
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error al realizar la solicitud Axios:', error);
+    throw error;
+  }
+};

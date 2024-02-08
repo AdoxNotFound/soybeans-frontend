@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 
 export default function DaysCounter() {
     return (
-        <Paper elevation={3} sx={{m: 2, p: 2, maxWidth: 200}}>
+        <Paper variant="outlined" square={false} sx={{m: 2, p: 2, maxWidth: 200}}>
             <Box sx={{ display: 'flex', 
                 flexDirection: 'column',
                 alignItems: 'center', 

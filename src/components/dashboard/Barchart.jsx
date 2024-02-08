@@ -11,16 +11,17 @@ export default function BasicBars({xAxisLabel, yAxisLabel,
 
   return (
     <Box sx={{mx: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-        <Paper elevation={3}
+        <Paper variant="outlined" square={false}
             sx={{mb: 2, mx: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
             <BarChart
               dataset={Dataset}
-              yAxis={[{ label: yAxisLabel  }]}
+              yAxis={[{ label: yAxisLabel }]}
               series={[{ dataKey: seriesDataKey, label: seriesLabel, valueFormatter, color: 'brown' }]}
               layout="vertical"
               xAxis={[{ scaleType: 'band', dataKey: xAxisLabel}]}
               width={600}
               height={300}
+              tooltip={{ trigger: 'item'}}
             />
         </Paper>
     </Box>

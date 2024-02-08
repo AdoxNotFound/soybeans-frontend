@@ -5,7 +5,6 @@ const ApiContext = createContext();
 const ApiProvider = ({ children }) => {
     const [settings, setSettings] = useState({
             token: 'empty',
-            token_type: 'empty',
             username: 'user',
             role: 'user', 
         });

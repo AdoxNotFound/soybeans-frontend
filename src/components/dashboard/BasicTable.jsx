@@ -64,7 +64,8 @@ export default function BasicTable() {
   const open = Boolean(anchorEl);
 
   return (
-    <TableContainer component={Paper} elevation={3} sx={{ width: '100%', maxWidth: 800 }}>
+    <TableContainer component={Paper} variant="outlined" square={false} 
+    sx={{ width: '100%', maxWidth: 830 }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -117,15 +118,17 @@ export default function BasicTable() {
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
               {popperData && (
+                <>
                 <Typography sx={{ p: 2 }}>
                   {`Quincena ${popperData.quincena}, Mes ${popperData.mes}`}
+                  </Typography>
               {popperData.estado &&
                <Typography variant="body2">{`Estado: ${popperData.estado}`}</Typography>}
               {popperData.acopio && 
               <Typography variant="body2">{`Acopio: ${popperData.acopio} TM`}</Typography>}
               {popperData.granoRecibido && 
               <Typography variant="body2">{`Grano Recibido: ${popperData.granoRecibido} TM`}</Typography>}
-            </Typography>
+              </>
               )}
             </Paper>
           </Fade>

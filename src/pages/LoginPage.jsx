@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import BackgroundImage from '../components/layout/BackgroundImage';
 import LoginForm from '../components/loginForm/LoginForm';
 import useLoginForm from '../components/loginForm/useLoginForm';
-import { loginUser } from '../services/api';
+import { loginUser, userReconection } from '../services/api';
 import { useApiContext } from '../components/context/ApiContext';
 
 const LoginPage = ({ setToken }) => {
@@ -32,11 +32,12 @@ const LoginPage = ({ setToken }) => {
 
           // guardardo de los parametros iniciales
           updateSettings({
-            token: data.data.token,
-            token_type: data.data.token_type,
+            token: data.data.token_type + ' ' + data.data.token,
             username: data.data.user.username,
             role: data.data.user.role,
           });
+        
+          await fetchUserReconection(data.data.token_type + ' ' + data.data.token);
 
         } else {
           console.error('La respuesta no contiene token o user.');
@@ -50,6 +51,26 @@ const LoginPage = ({ setToken }) => {
       console.error('Error al realizar la solicitud:', error);
     }
   };
+
+    // Función para llamar a userReconection
+    const fetchUserReconection = async (token) => {
+      try {
+        const response = await userReconection(token);
+        // Verifica si la respuesta es válida y actualiza el contexto de la API
+        if (response && response.data) {
+          // Actualiza el contexto de la API con los datos adicionales recibidos de userReconection
+  /*       updateSettings({
+            // Actualiza los parámetros según los datos recibidos en la respuesta de userReconection
+          });
+    */
+          console.log(response.data)
+        } else {
+          console.error('La respuesta de userReconection no es válida.');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud de userReconection:', error);
+      }
+    };
 
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
