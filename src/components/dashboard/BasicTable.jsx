@@ -119,11 +119,12 @@ export default function BasicTable() {
               {popperData && (
                 <Typography sx={{ p: 2 }}>
                   {`Quincena ${popperData.quincena}, Mes ${popperData.mes}`}
-              {popperData.estado && <Typography variant="body2">{`Estado: ${popperData.estado}`}</Typography>}
-              {/* Aquí puedes agregar más información según tus necesidades */}
-              {popperData.acopio && <Typography variant="body2">{`Acopio: ${popperData.acopio} TM`}</Typography>}
-              {popperData.granoRecibido && <Typography variant="body2">{`Grano Recibido: ${popperData.granoRecibido} TM`}</Typography>}
-              {/* Agrega más campos de acuerdo a tus necesidades */}
+              {popperData.estado &&
+               <Typography variant="body2">{`Estado: ${popperData.estado}`}</Typography>}
+              {popperData.acopio && 
+              <Typography variant="body2">{`Acopio: ${popperData.acopio} TM`}</Typography>}
+              {popperData.granoRecibido && 
+              <Typography variant="body2">{`Grano Recibido: ${popperData.granoRecibido} TM`}</Typography>}
             </Typography>
               )}
             </Paper>

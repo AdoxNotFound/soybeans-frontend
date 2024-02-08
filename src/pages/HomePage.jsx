@@ -13,7 +13,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <CssBaseline/>
+      <CssBaseline />
       <ButtonAppBar/>
     </div>
   );
