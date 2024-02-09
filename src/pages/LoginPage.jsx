@@ -24,7 +24,7 @@ const LoginPage = ({ setToken }) => {
         const { data } = response;
         
         if (data.data.token && data.data.user) {
-          console.log('User:', data.data.user);
+         // console.log('User:', data.data.user);
           // console.log('Token:', data.data.token);
   
           // Guarda la sesión
@@ -36,8 +36,12 @@ const LoginPage = ({ setToken }) => {
             username: data.data.user.username,
             role: data.data.user.role,
           });
-        
-          await fetchUserReconection(data.data.token_type + ' ' + data.data.token);
+
+          if (data.data.user.role === 'industria') {
+            await fetchUserReconection(data.data.token_type + ' ' + data.data.token);
+          } else {
+            console.log('Otro tipo de usuario');
+          }
 
         } else {
           console.error('La respuesta no contiene token o user.');
@@ -58,12 +62,20 @@ const LoginPage = ({ setToken }) => {
         const response = await userReconection(token);
         // Verifica si la respuesta es válida y actualiza el contexto de la API
         if (response && response.data) {
-          // Actualiza el contexto de la API con los datos adicionales recibidos de userReconection
-  /*       updateSettings({
-            // Actualiza los parámetros según los datos recibidos en la respuesta de userReconection
-          });
-    */
-          console.log(response.data)
+        const optionNames = response.data.data.options.map(option => option.short_name);
+
+        updateSettings({
+          actualPeriod: {
+            name: response.data.data.period.name,
+            year: response.data.data.period.year,
+            month: response.data.data.period.month,
+            biweekly: response.data.data.period.biweekly,
+            status: response.data.data.period.status
+          },
+          industryOptions: optionNames
+        });
+  
+          console.log(optionNames)
         } else {
           console.error('La respuesta de userReconection no es válida.');
         }

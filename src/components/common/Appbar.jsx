@@ -125,7 +125,8 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
             {/* se deben arreglar los iconos */}
-          {['Inicio', 'Resumen', 'Correccion'].map((text, index) => (
+          {['Pagina Principal', 'Resumenes', 'Correcciones',
+           'Configuraciones', 'Cerrar Sesión'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

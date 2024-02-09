@@ -21,8 +21,10 @@ export default function BasicBars({xAxisLabel, yAxisLabel,
               xAxis={[{ scaleType: 'band', dataKey: xAxisLabel}]}
               width={600}
               height={300}
-              tooltip={{ trigger: 'item'}}
+              tooltip={{ trigger: 'item' }}
             />
+            {/* el trigger que mas estetico usando axis, sin embargo en el estado actual 
+          del componente es mejor utilizar item, cuando se arregle, se cambiara*/}
         </Paper>
     </Box>
   );

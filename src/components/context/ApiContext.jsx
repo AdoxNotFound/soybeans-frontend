@@ -7,6 +7,14 @@ const ApiProvider = ({ children }) => {
             token: 'empty',
             username: 'user',
             role: 'user', 
+            actualPeriod : {
+                name: 'empty',
+                year: 2020,
+                month: 1,
+                biweekly: 1,
+                status: 'undefined'
+            },
+            industryOptions: ['option1']
         });
 
     const updateSettings = (newSettings) => {
