@@ -35,5 +35,4 @@ const sendRequest = async (method, url, data = null, headers = null) => {
     console.error('Axios Response Error:', error);
     return Promise.reject(error);
   });
-
 */

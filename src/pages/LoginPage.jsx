@@ -6,11 +6,15 @@ import BackgroundImage from '../components/login/BackgroundImage';
 import LoginForm from '../components/login/LoginForm';
 import { userLogin, userReconection } from '../services/authService';
 import { useApiContext } from '../components/context/ApiContext';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import useToken from '../services/useToken';
 
-const LoginPage = ({ setToken }) => {
+const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { updateSettings } = useApiContext();
+  const {tokens, setTokens, clearTokens } = useToken(); 
+  const navigate = useNavigate(); // Obtiene la función navigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +29,7 @@ const LoginPage = ({ setToken }) => {
         
         if (data.data.token && data.data.user) {
           // Guarda la sesión
-          setToken(data.data.token);
+          setTokens(data.data.token);
 
           // guardardo de los parametros iniciales
           updateSettings({
@@ -34,10 +38,18 @@ const LoginPage = ({ setToken }) => {
             role: data.data.user.role,
           });
 
+/*
           if (data.data.user.role === 'industria') {
             await fetchUserReconection(data.data.token_type + ' ' + data.data.token);
           } else {
             console.log('Otro tipo de usuario');
+          }
+*/
+          // Redirige al usuario a la página de inicio correspondiente
+          if (data.data.user.role === 'administrador') {
+            navigate('/admin');
+          } else if (data.data.user.role === 'industria') {
+            navigate('/industry');
           }
 
         } else {

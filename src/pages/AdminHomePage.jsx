@@ -3,13 +3,22 @@ import CssBaseline from '@mui/material/CssBaseline';
 import useToken from '../services/useToken';
 import LoginPage from './LoginPage';
 import { Typography, Box, Button } from '@mui/material';
+import { useApiContext } from '../components/context/ApiContext';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redireccionar
 
 const AdminHomePage = () => {
   const {tokens, setTokens, clearTokens } = useToken(); 
 
-  if (!tokens) {
-    {return <LoginPage setToken={setTokens}/>}
-  }
+  const { settings } = useApiContext();
+
+  const navigate = useNavigate(); // Obtiene la función navigate
+
+  const handleLogout = () => {
+    // Llama a la función para limpiar los tokens o las credenciales de usuario
+    clearTokens();
+    // Redirige al usuario a la página de inicio de sesión
+    navigate('/');
+  };
 
   return (
     <div>
@@ -26,15 +35,15 @@ const AdminHomePage = () => {
         <Typography component="h1" variant="h5">
           Pagina de Inicio
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <Typography>
-                Nombre de usuario
+            {settings.username}
             </Typography>
             <Typography>
-                Tipo de usuario
+            {settings.role}
             </Typography>
           <Button
           type='button'
+          onClick={handleLogout} // Llama a la función handleLogout al hacer clic
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
@@ -42,7 +51,6 @@ const AdminHomePage = () => {
           Cerrar sesión
           </Button>
         </Box>
-      </Box>
     </div>
   );
 };
