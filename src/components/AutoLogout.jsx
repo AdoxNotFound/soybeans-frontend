@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useToken from '../app/useToken';
+import useToken from '../services/useToken'; 
 
 const AutoLogout = ({ logoutTime }) => {
   const { clearTokens } = useToken();
@@ -7,7 +7,7 @@ const AutoLogout = ({ logoutTime }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       // Llama a clearTokens después de 10 minutos (o el tiempo que desees)
-      clearTokens();
+      clearTokens(); 
 
       // Puedes redirigir a la página de inicio de sesión o hacer otras acciones necesarias
       // history.push('/login');

@@ -1,21 +1,21 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import BackgroundImage from '../components/layout/BackgroundImage';
-import LoginForm from '../components/loginForm/LoginForm';
-import useLoginForm from '../components/loginForm/useLoginForm';
-import { loginUser, userReconection } from '../services/api';
+import BackgroundImage from '../components/login/BackgroundImage';
+import LoginForm from '../components/login/LoginForm';
+import { userLogin, userReconection } from '../services/authService';
 import { useApiContext } from '../components/context/ApiContext';
 
 const LoginPage = ({ setToken }) => {
-  const { username, setUsername, password, setPassword } = useLoginForm();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const { updateSettings } = useApiContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser({
+      const response = await userLogin({
         username,
         password,
       });
@@ -24,9 +24,6 @@ const LoginPage = ({ setToken }) => {
         const { data } = response;
         
         if (data.data.token && data.data.user) {
-         // console.log('User:', data.data.user);
-          // console.log('Token:', data.data.token);
-  
           // Guarda la sesión
           setToken(data.data.token);
 

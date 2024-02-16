@@ -1,7 +1,7 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import ButtonAppBar from '../components/common/Appbar';
-import useToken from '../app/useToken';
+import useToken from '../services/useToken';
 import LoginPage from './LoginPage';
 
 const HomePage = () => {
