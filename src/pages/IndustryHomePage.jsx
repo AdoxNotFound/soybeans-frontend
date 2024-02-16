@@ -1,24 +1,12 @@
-import React from 'react'
+import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import useToken from '../services/useToken';
-import LoginPage from './LoginPage';
 import { Typography, Box, Button } from '@mui/material';
 import { useApiContext } from '../components/context/ApiContext';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redireccionar
+import LogoutHandler from '../helpers/LogoutHandler';
 
 const IndustryHomePage = () => {
-    const {tokens, setTokens, clearTokens } = useToken(); 
-
     const { settings } = useApiContext();
-    const navigate = useNavigate(); // Obtiene la función navigate
-  
-    const handleLogout = () => {
-      // Llama a la función para limpiar los tokens o las credenciales de usuario
-      clearTokens();
-      // Redirige al usuario a la página de inicio de sesión
-      navigate('/');
-    };
-  
+    
     return (
       <div>
         <CssBaseline />
@@ -42,7 +30,7 @@ const IndustryHomePage = () => {
               </Typography>
             <Button
             type='button'
-            onClick={handleLogout} // Llama a la función handleLogout al hacer clic
+            onClick={LogoutHandler()} // Llama a la función handleLogout al hacer clic
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

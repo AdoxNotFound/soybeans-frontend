@@ -28,7 +28,7 @@ export const userReconection = async (userToken) => {
 
 export const userLogout = async(userToken) => {
   try {
-    const response = await axiosInstance.post('/auth/logout', {
+    const response = await axiosInstance.post('/auth/logout', null, {
       headers: {
         'Authorization': userToken
       },

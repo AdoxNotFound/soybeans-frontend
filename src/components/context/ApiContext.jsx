@@ -17,12 +17,15 @@ const ApiProvider = ({ children }) => {
             industryOptions: ['option1']
         });
 
+        //const [firstResponseReceived, setFirstResponseReceived] = useState(false);
+
     const updateSettings = (newSettings) => {
         setSettings({...settings, ...newSettings});
     };
 
     return (
         <ApiContext.Provider value={{ settings, updateSettings}}>
+           { /*, firstResponseReceived, setFirstResponseReceived}}>*/}
             {children}
         </ApiContext.Provider>
     );
