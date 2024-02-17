@@ -29,13 +29,14 @@ const LoginPage = () => {
         
         if (data.data.token && data.data.user) {
           // Guarda la sesión
-          setTokens(data.data.token);
+          setTokens(data.data.token_type + ' ' + data.data.token);
 
           // guardardo de los parametros iniciales
           updateSettings({
             token: data.data.token_type + ' ' + data.data.token,
             username: data.data.user.username,
             role: data.data.user.role,
+            isLoggedIn: true,
           });
 
 /*
@@ -46,11 +47,13 @@ const LoginPage = () => {
           }
 */
           // Redirige al usuario a la página de inicio correspondiente
-          if (data.data.user.role === 'administrador') {
+         /* if (data.data.user.role === 'administrador') {
             navigate('/admin');
           } else if (data.data.user.role === 'industria') {
             navigate('/industry');
           }
+*/
+          navigate('/home');
 
         } else {
           console.error('La respuesta no contiene token o user.');

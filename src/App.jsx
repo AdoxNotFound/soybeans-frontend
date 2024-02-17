@@ -1,14 +1,9 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ApiProvider } from './components/context/ApiContext';
-//import HomePage from './pages/HomePage';
-//import AutoLogout from './helpers/AutoLogout';
-import LoginPage from './pages/LoginPage';
-import AdminHomePage from './pages/AdminHomePage';
-import IndustryHomePage from './pages/IndustryHomePage';
 import { setupRequestInterceptor, setupResponseInterceptor } from './services/axiosInterceptors';
 import axiosInstance from './services/axiosInstance';
+import AppRoutes from './components/routes/AppRoutes';
 
 function App() {
 
@@ -28,14 +23,7 @@ function App() {
 
   return (
     <ApiProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<LoginPage />} />
-            <Route path='/admin' element={<AdminHomePage />} />
-            <Route path='/industry' element={<IndustryHomePage />} />
-            <Route path='/*' element={<LoginPage />} />
-          </Routes>
-        </BrowserRouter>
+      <AppRoutes></AppRoutes>
         {/*<AutoLogout logoutTime={logoutTime}/>*/}
     </ApiProvider>
   );

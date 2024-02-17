@@ -1,38 +1,31 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import ButtonAppBar from '../components/common/Appbar';
-import useToken from '../services/useToken';
-import LoginPage from './LoginPage';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useApiContext } from '../components/context/ApiContext';
+import { UserTypes } from '../helpers/UserTypes';
+import AdminHomePage from '../pages/AdminHomePage';
+import IndustryHomePage from '../pages/IndustryHomePage';
 
 const HomePage = () => {
-  const {tokens, setTokens, clearTokens } = useToken(); 
+  const navigate = useNavigate();
+  const { settings } = useApiContext();
 
-  if (!tokens) {
-    {return <LoginPage setToken={setTokens}/>}
-  }
+  const selector = () => {
+    if (settings.role === UserTypes[0]) {
+      return <AdminHomePage/>;
+    } else if (settings.role === UserTypes[1]) {
+      return <IndustryHomePage/>;
+    }
+  };
 
   return (
     <div>
       <CssBaseline />
-      <ButtonAppBar/>
+        {selector()}
+     {/* <ButtonAppBar/> */} 
     </div>
   );
 };
 
 export default HomePage
-
-/*<Typography variant='h5' component='h5'>
-  Seleccione la gestión
-</Typography>
-<FormControl fullWidth sx={{width: 150, marginY: 3}}>
-  <InputLabel id="demo-simple-select-label">Gestión</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      label="Year"
-    >
-      <MenuItem value={2022}>2022</MenuItem>
-      <MenuItem value={2023}>2023</MenuItem>
-      <MenuItem value={2024}>2024</MenuItem>
-    </Select>
-    </FormControl> */

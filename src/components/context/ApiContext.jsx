@@ -7,6 +7,7 @@ const ApiProvider = ({ children }) => {
             token: 'empty',
             username: 'user',
             role: 'user', 
+            isLoggedIn: false,
             actualPeriod : {
                 name: 'empty',
                 year: 2020,
