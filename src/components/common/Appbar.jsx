@@ -17,10 +17,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useApiContext } from '../context/ApiContext';
-import IndustryDashboard from '../dashboard/IndustryDashboard';
+import LogoutHandler from '../../helpers/LogoutHandler';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import useToken from '../../services/useToken';
 
 const drawerWidth = 240;
 
@@ -69,7 +69,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -82,6 +83,10 @@ export default function PersistentDrawerLeft() {
   };
 
   const { settings} = useApiContext();
+  const {tokens, clearTokens } = useToken(); 
+  const navigate = useNavigate(); // Obtiene la función navigate
+
+  const handleLogout = LogoutHandler( tokens,  clearTokens, navigate);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -124,13 +129,17 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-            {/* se deben arreglar los iconos */}
-          {['Pagina Principal', 'Resumenes', 'Correcciones',
-           'Configuraciones', 'Cerrar Sesión'].map((text, index) => (
+          {items.map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => {
+                if (text === 'Cerrar Sesión') {
+                  handleLogout();
+                } else {
+                  console.log('Navegando a:');
+                }
+              }}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {icons[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -140,7 +149,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-          <IndustryDashboard />
+          {SelectedPage}
       </Main>
     </Box>
   );

@@ -1,29 +1,28 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
 import ButtonAppBar from '../components/common/Appbar';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { useApiContext } from '../components/context/ApiContext';
-import { UserTypes } from '../helpers/UserTypes';
+import { UserTypes, UserItems, UserIcons } from '../helpers/UserTypes';
 import AdminHomePage from '../pages/AdminHomePage';
-import IndustryHomePage from '../pages/IndustryHomePage';
+import IndustryDashboard from '../components/dashboard/IndustryDashboard';
 
 const HomePage = () => {
-  const navigate = useNavigate();
   const { settings } = useApiContext();
 
-  const selector = () => {
+  const pageSelector = () => {
     if (settings.role === UserTypes[0]) {
       return <AdminHomePage/>;
     } else if (settings.role === UserTypes[1]) {
-      return <IndustryHomePage/>;
+      return <IndustryDashboard/>;
     }
   };
 
   return (
     <div>
-      <CssBaseline />
-        {selector()}
-     {/* <ButtonAppBar/> */} 
+      <ButtonAppBar         
+        SelectedPage={pageSelector()}
+        items={UserItems[settings.role]}
+        icons={UserIcons[settings.role]}
+      />
     </div>
   );
 };

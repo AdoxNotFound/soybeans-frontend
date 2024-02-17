@@ -39,20 +39,6 @@ const LoginPage = () => {
             isLoggedIn: true,
           });
 
-/*
-          if (data.data.user.role === 'industria') {
-            await fetchUserReconection(data.data.token_type + ' ' + data.data.token);
-          } else {
-            console.log('Otro tipo de usuario');
-          }
-*/
-          // Redirige al usuario a la página de inicio correspondiente
-         /* if (data.data.user.role === 'administrador') {
-            navigate('/admin');
-          } else if (data.data.user.role === 'industria') {
-            navigate('/industry');
-          }
-*/
           navigate('/home');
 
         } else {
