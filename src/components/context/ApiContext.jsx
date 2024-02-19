@@ -8,17 +8,7 @@ const ApiProvider = ({ children }) => {
             username: 'user',
             role: 'user', 
             isLoggedIn: false,
-            actualPeriod : {
-                name: 'empty',
-                year: 2020,
-                month: 1,
-                biweekly: 1,
-                status: 'undefined'
-            },
-            industryOptions: ['option1']
         });
-
-        //const [firstResponseReceived, setFirstResponseReceived] = useState(false);
 
     const updateSettings = (newSettings) => {
         setSettings({...settings, ...newSettings});
@@ -26,7 +16,6 @@ const ApiProvider = ({ children }) => {
 
     return (
         <ApiContext.Provider value={{ settings, updateSettings}}>
-           { /*, firstResponseReceived, setFirstResponseReceived}}>*/}
             {children}
         </ApiContext.Provider>
     );
