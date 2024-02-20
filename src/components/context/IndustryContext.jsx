@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 const IndustryContext = createContext();
 
 const ApiProvider = ({ children }) => {
-    const [settings, setSettings] = useState({  
-        peroidName: 'empty',
+    const [industrySettings, setIndustrySettings] = useState({  
+        periodName: 'empty',
         year: 2020,
         month: 1,
         biweekly: 1,
@@ -12,15 +12,15 @@ const ApiProvider = ({ children }) => {
         endDate: "2024-02-07",
         limitDate: "2024-02-15",
         status: 'undefined',
-        industryOptions: ['option1']
+        industryOptions: ['option1'],
     });
 
-    const updateSettings = (newSettings) => {
-        setSettings({...settings, ...newSettings});
+    const updateIndustrySettings = (newSettings) => {
+        setIndustrySettings({...industrySettings, ...newSettings});
     };
 
     return (
-        <ApiContext.Provider value={{ settings, updateSettings}}>
+        <ApiContext.Provider value={{ industrySettings, updateIndustrySettings}}>
             {children}
         </ApiContext.Provider>
     );
