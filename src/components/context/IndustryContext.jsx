@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const IndustryContext = createContext();
 
-const ApiProvider = ({ children }) => {
+const IndustryProvider = ({ children }) => {
     const [industrySettings, setIndustrySettings] = useState({  
         periodName: 'empty',
         year: 2020,
@@ -34,4 +34,4 @@ const useIndustryContext = () => {
     return context
 };
 
-export { ApiProvider, useIndustryContext };
+export { IndustryProvider, useIndustryContext };

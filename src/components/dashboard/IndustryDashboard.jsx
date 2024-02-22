@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import BasicTable from './BasicTable';
 import BasicBars from './Barchart';
 import Grid from '@mui/material/Grid';
@@ -8,14 +8,18 @@ import TableLegend from './TableLegend';
 import Typography from '@mui/material/Typography';
 import { useApiContext } from '../context/ApiContext';
 import { useIndustryContext } from '../context/IndustryContext';
-//import { handleReconection } from '../../helpers/handleReconection';
+import { handleReconection } from '../../helpers/handleReconection';
 
 const IndustryDashboard = () => {
 
-    //const { settings } = useApiContext();
-    //const { industrySettings, updateIndustrySettings } = useIndustryContext();
+    const { settings } = useApiContext();
+    const { industrySettings, updateIndustrySettings } = useIndustryContext();
 
-    //handleReconection(settings.token, updateIndustrySettings);
+    console.log(settings.token);
+    
+    useEffect(() => {
+        handleReconection(settings.token, updateIndustrySettings); 
+    }, [settings.token, updateIndustrySettings]);
 
     return (
         <Grid container spacing={1} direction="column"> 
@@ -35,7 +39,7 @@ const IndustryDashboard = () => {
                         <BasicTable />
                         <TableLegend />
                     </Box>
-                    <DaysCounter />
+                    <DaysCounter currentDate={industrySettings.startDate} />
                 </Box>
             </Grid>
             <Grid item xs={12}>

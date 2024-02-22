@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-export default function DaysCounter() {
+export default function DaysCounter( {currentDate} ) {
     return (
         <Paper variant="outlined" square={false} sx={{m: 2, p: 2, maxWidth: 200}}>
             <Box sx={{ display: 'flex', 
@@ -15,7 +15,7 @@ export default function DaysCounter() {
                 justifyContent: 'space-between',
                 rowGap: 2}}>
                 <Typography>
-                    Fecha: 06/02/2024
+                    {currentDate}
                 </Typography>
                 <Typography sx={{color: 'green'}}>
                     5 dias restantes

@@ -13,9 +13,9 @@ export const handleReconection = async (token, updateIndustrySettings) => {
             year: response.data.data.period.year,
             month: response.data.data.period.month,
             biweekly: response.data.data.period.biweekly,
-            startDate: "2024-02-01",
-            endDate: "2024-02-07",
-            limitDate: "2024-02-15",
+            startDate: response.data.data.period.date_start,
+            endDate: response.data.data.period.date_end,
+            limitDate: response.data.data.period.date_limit,
             status: response.data.data.period.status,
             industryOptions: optionNames,
         });
