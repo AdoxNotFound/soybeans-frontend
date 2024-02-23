@@ -2,8 +2,8 @@ import { Navigate } from "react-router-dom";
 import { useApiContext } from '../context/ApiContext';
 
 const PrivateRoute = ({ children }) => {
-    const { settings } = useApiContext();
-    if (!settings.isLoggedIn) {
+    const { generalSettings } = useApiContext();
+    if (!generalSettings.isLoggedIn) {
         return <Navigate to="/" />;
     }
     return children;

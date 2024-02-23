@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage';
 import AdminHomePage from '../../pages/AdminHomePage';
-import IndustryHomePage from '../../pages/IndustryHomePage';
+import IndustryFormPage from '../../pages/IndustryFormPage';
 import PrivateRoute from './PrivateRoute';
+import IndustryRoute from './IndustryRoute';
 import HomePage from '../../pages/HomePage';
 
 const AppRoutes = () => {
@@ -20,9 +21,9 @@ const AppRoutes = () => {
                 <AdminHomePage />
             </PrivateRoute> } />
         <Route path='/industry' element={
-            <PrivateRoute>
-                <IndustryHomePage />
-            </PrivateRoute> } />
+            <IndustryRoute>
+                <IndustryFormPage />
+            </IndustryRoute> } />
         <Route path='/*' element={<LoginPage />} />
     </Routes>
   </BrowserRouter>

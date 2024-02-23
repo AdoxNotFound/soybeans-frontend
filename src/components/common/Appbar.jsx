@@ -82,7 +82,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
     setOpen(false);
   };
 
-  const { settings} = useApiContext();
+  const { generalSettings} = useApiContext();
   const {tokens, clearTokens } = useToken(); 
   const navigate = useNavigate(); // Obtiene la función navigate
 
@@ -105,7 +105,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Sistema de registro de formularios quincenales
           </Typography>
-          <Typography sx={{marginRight: 1}}>{settings.username}</Typography>
+          <Typography sx={{marginRight: 1}}>{generalSettings.username}</Typography>
           <AccountCircle />
         </Toolbar>
       </AppBar>

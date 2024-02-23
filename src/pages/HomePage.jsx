@@ -6,12 +6,12 @@ import AdminHomePage from '../pages/AdminHomePage';
 import IndustryDashboard from '../components/dashboard/IndustryDashboard';
 
 const HomePage = () => {
-  const { settings } = useApiContext();
+  const { generalSettings } = useApiContext();
 
   const pageSelector = () => {
-    if (settings.role === UserTypes[0]) {
+    if (generalSettings.role === UserTypes[0]) {
       return <AdminHomePage/>;
-    } else if (settings.role === UserTypes[1]) {
+    } else if (generalSettings.role === UserTypes[1]) {
       return <IndustryDashboard/>;
     }
   };
@@ -20,8 +20,8 @@ const HomePage = () => {
     <div>
       <ButtonAppBar         
         SelectedPage={pageSelector()}
-        items={UserItems[settings.role]}
-        icons={UserIcons[settings.role]}
+        items={UserItems[generalSettings.role]}
+        icons={UserIcons[generalSettings.role]}
       />
     </div>
   );

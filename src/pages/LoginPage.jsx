@@ -12,7 +12,7 @@ import { handleSubmit } from '../helpers/handleLoginResponse';
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { updateSettings } = useApiContext();
+  const { updateGeneralSettings } = useApiContext();
   const { setTokens } = useToken(); 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const LoginPage = () => {
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <LoginForm handleSubmit={(e) => handleSubmit(e, username, password, setTokens,
-         updateSettings, navigate)} setPassword={setPassword} setUsername={setUsername} />
+         updateGeneralSettings, navigate)} setPassword={setPassword} setUsername={setUsername} />
       </Grid>
       <BackgroundImage />
     </Grid>

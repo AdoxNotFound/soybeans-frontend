@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import useToken from '../services/useToken';
 
 const AdminHomePage = () => {
-  const { settings } = useApiContext();
+  const { generalSettings } = useApiContext();
   const {tokens, clearTokens } = useToken(); 
   const navigate = useNavigate(); // Obtiene la función navigate
 
@@ -29,10 +29,10 @@ const AdminHomePage = () => {
           Pagina de Inicio
         </Typography>
             <Typography>
-            {settings.username}
+            {generalSettings.username}
             </Typography>
             <Typography>
-            {settings.role}
+            {generalSettings.role}
             </Typography>
           <Button
           type='button'

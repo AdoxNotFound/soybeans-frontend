@@ -5,8 +5,17 @@ import Stack from '@mui/material/Stack';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 export default function DaysCounter( {currentDate} ) {
+
+    const navigate = useNavigate();
+
+    function handleClick(event) {
+
+        navigate('/industry');
+      }
+
     return (
         <Paper variant="outlined" square={false} sx={{m: 2, p: 2, maxWidth: 200}}>
             <Box sx={{ display: 'flex', 
@@ -30,7 +39,8 @@ export default function DaysCounter( {currentDate} ) {
                     <ActiveDays/>
                 </Stack>
                 <Button variant='contained'
-                         sx={{ mb: 1 }}>Ingresar nuevo formulario</Button>
+                         sx={{ mb: 1 }}
+                         onClick={handleClick}>Ingresar nuevo formulario</Button>
             </Box>
         </Paper>
     );

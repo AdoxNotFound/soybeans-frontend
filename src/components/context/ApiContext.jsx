@@ -3,19 +3,36 @@ import { createContext, useContext, useState } from "react";
 const ApiContext = createContext();
 
 const ApiProvider = ({ children }) => {
-    const [settings, setSettings] = useState({
+    const [generalSettings, setGeneralSettings] = useState({
             token: 'empty',
             username: 'user',
             role: 'user', 
             isLoggedIn: false,
-        });
+    });
 
-    const updateSettings = (newSettings) => {
-        setSettings({...settings, ...newSettings});
+    const [industrySettings, setIndustrySettings] = useState({  
+        periodName: 'empty',
+        year: 2020,
+        month: 1,
+        biweekly: 1,
+        startDate: "2024-02-01",
+        endDate: "2024-02-07",
+        limitDate: "2024-02-15",
+        status: 'undefined',
+        industryOptions: ['option1'],
+    });
+
+    const updateGeneralSettings = (newSettings) => {
+        setGeneralSettings({...generalSettings, ...newSettings});
+    };
+
+    const updateIndustrySettings = (newSettings) => {
+        setIndustrySettings({...industrySettings, ...newSettings});
     };
 
     return (
-        <ApiContext.Provider value={{ settings, updateSettings}}>
+        <ApiContext.Provider value={{ generalSettings, updateGeneralSettings,
+            industrySettings, updateIndustrySettings}}>
             {children}
         </ApiContext.Provider>
     );

@@ -7,19 +7,15 @@ import DaysCounter from './DaysCounter';
 import TableLegend from './TableLegend';
 import Typography from '@mui/material/Typography';
 import { useApiContext } from '../context/ApiContext';
-import { useIndustryContext } from '../context/IndustryContext';
 import { handleReconection } from '../../helpers/handleReconection';
 
 const IndustryDashboard = () => {
 
-    const { settings } = useApiContext();
-    const { industrySettings, updateIndustrySettings } = useIndustryContext();
-
-    console.log(settings.token);
+    const { generalSettings, industrySettings, updateIndustrySettings } = useApiContext();
     
     useEffect(() => {
-        handleReconection(settings.token, updateIndustrySettings); 
-    }, [settings.token, updateIndustrySettings]);
+        handleReconection(generalSettings.token, updateIndustrySettings); 
+    }, [generalSettings.token, updateIndustrySettings]);
 
     return (
         <Grid container spacing={1} direction="column"> 
