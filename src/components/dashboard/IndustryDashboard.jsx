@@ -15,7 +15,7 @@ const IndustryDashboard = () => {
     
     useEffect(() => {
         handleReconection(generalSettings.token, updateIndustrySettings); 
-    }, [generalSettings.token, updateIndustrySettings]);
+    }, []);
 
     return (
         <Grid container spacing={1} direction="column"> 
