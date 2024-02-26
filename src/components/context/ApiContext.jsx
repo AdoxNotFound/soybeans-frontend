@@ -20,6 +20,7 @@ const ApiProvider = ({ children }) => {
         limitDate: "2024-02-15",
         status: 'undefined',
         industryOptions: ['option1'],
+        availableYears: [2022, 2023, 2024],
     });
 
     const updateGeneralSettings = (newSettings) => {

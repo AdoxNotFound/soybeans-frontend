@@ -1,4 +1,4 @@
-import './App.css';
+import './index.css'
 import React, { useEffect } from 'react';
 import { ApiProvider } from './components/context/ApiContext';
 import { setupRequestInterceptor, setupResponseInterceptor } from './services/axiosInterceptors';
@@ -22,10 +22,12 @@ function App() {
     }, []);
 
   return (
-    <ApiProvider>
-      <AppRoutes></AppRoutes>
-        {/*<AutoLogout logoutTime={logoutTime}/>*/}
-    </ApiProvider>
+    <div className='app'>
+      <ApiProvider>
+        <AppRoutes></AppRoutes>
+          {/*<AutoLogout logoutTime={logoutTime}/>*/}
+      </ApiProvider>
+    </div>
   );
 };
 

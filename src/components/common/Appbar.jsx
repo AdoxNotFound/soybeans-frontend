@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -90,8 +89,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} color='transparent' elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -102,7 +100,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Sistema de registro de formularios quincenales
           </Typography>
           <Typography sx={{marginRight: 1}}>{generalSettings.username}</Typography>

@@ -1,15 +1,13 @@
 import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useApiContext } from '../components/context/ApiContext';
-import LogoutHandler from '../helpers/LogoutHandler';
+import IndustryFormTable from '../components/forms/IndustryFormTable';
 
 const IndustryFormPage = () => {
     const { generalSettings } = useApiContext();
     
     return (
       <div>
-        <CssBaseline />
         <Box
           sx={{
             my: 8,
@@ -28,14 +26,7 @@ const IndustryFormPage = () => {
               <Typography>
               {generalSettings.role}
               </Typography>
-            <Button
-            type='button'
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            >
-            Cerrar sesión
-            </Button>
+          <IndustryFormTable />
           </Box>
       </div>
   );

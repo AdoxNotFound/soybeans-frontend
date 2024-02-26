@@ -1,5 +1,4 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
 import { Typography, Box, Button } from '@mui/material';
 import { useApiContext } from '../components/context/ApiContext';
 import LogoutHandler from '../helpers/LogoutHandler';
@@ -15,7 +14,6 @@ const AdminHomePage = () => {
 
   return (
     <div>
-      <CssBaseline />
       <Box
         sx={{
           my: 8,

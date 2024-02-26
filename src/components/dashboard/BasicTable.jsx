@@ -65,23 +65,23 @@ export default function BasicTable() {
 
   return (
     <TableContainer component={Paper} variant="outlined" square={false} 
-    sx={{ width: '100%', maxWidth: 830 }}>
-      <Table aria-label="simple table">
+    sx={{ maxWidth: 750 }}>
+      <Table aria-label="simple table" size='small'>
         <TableHead>
           <TableRow>
             <TableCell>Quincena</TableCell>
-            <TableCell>Mes 1</TableCell>
-            <TableCell>Mes 2</TableCell>
-            <TableCell>Mes 3</TableCell>
-            <TableCell>Mes 4</TableCell>
-            <TableCell>Mes 5</TableCell>
-            <TableCell>Mes 6</TableCell>
-            <TableCell>Mes 7</TableCell>
-            <TableCell>Mes 8</TableCell>
-            <TableCell>Mes 9</TableCell>
-            <TableCell>Mes 10</TableCell>
-            <TableCell>Mes 11</TableCell>
-            <TableCell>Mes 12</TableCell>
+            <TableCell>Ene</TableCell>
+            <TableCell>Feb</TableCell>
+            <TableCell>Mar</TableCell>
+            <TableCell>Abr</TableCell>
+            <TableCell>May</TableCell>
+            <TableCell>Jun</TableCell>
+            <TableCell>Jul</TableCell>
+            <TableCell>Ago</TableCell>
+            <TableCell>Sep</TableCell>
+            <TableCell>Oct</TableCell>
+            <TableCell>Nov</TableCell>
+            <TableCell>Dic</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -90,7 +90,7 @@ export default function BasicTable() {
               key={rowIndex}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" sx={{width: '50px'}}>
                 {row.quincena}
               </TableCell>
               {Object.values(row).slice(1).map((data, index) => (
@@ -99,6 +99,7 @@ export default function BasicTable() {
                   align="right"
                   onMouseEnter={(event) => handleMouseEnter(event, data)}
                   onMouseLeave={handleMouseLeave}
+                  sx={{width: '50px'}}
                 >
                     {statusIcons[data.estado]}
                   </TableCell>
