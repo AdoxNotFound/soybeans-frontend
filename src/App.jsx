@@ -1,9 +1,9 @@
 import './index.css'
 import React, { useEffect } from 'react';
-import { ApiProvider } from './components/context/ApiContext';
 import { setupRequestInterceptor, setupResponseInterceptor } from './services/axiosInterceptors';
 import axiosInstance from './services/axiosInstance';
 import AppRoutes from './components/routes/AppRoutes';
+import ToggleThemeButton from './components/common/ToggleThemeButton';
 
 function App() {
 
@@ -23,10 +23,9 @@ function App() {
 
   return (
     <div className='app'>
-      <ApiProvider>
-        <AppRoutes></AppRoutes>
+        <AppRoutes />
+        <ToggleThemeButton />
           {/*<AutoLogout logoutTime={logoutTime}/>*/}
-      </ApiProvider>
     </div>
   );
 };

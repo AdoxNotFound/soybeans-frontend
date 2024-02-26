@@ -35,7 +35,7 @@ const IndustryDashboard = () => {
                          rowGap: 3, m: 2, 
                          justifyContent: 'space-evenly',alignItems: 'center'
                           }}>
-                    <Typography variant="h3">Resumen Anual</Typography>
+                    <Typography variant="h5">Resumen Anual</Typography>
                     <YearSelector yearList={industrySettings.availableYears}/>
                     <Button variant="outlined">Ver gestión</Button>
                 </Box>

@@ -23,6 +23,8 @@ const ApiProvider = ({ children }) => {
         availableYears: [2022, 2023, 2024],
     });
 
+    const [themeMode, setThemeMode] = useState('light');
+
     const updateGeneralSettings = (newSettings) => {
         setGeneralSettings({...generalSettings, ...newSettings});
     };
@@ -31,9 +33,13 @@ const ApiProvider = ({ children }) => {
         setIndustrySettings({...industrySettings, ...newSettings});
     };
 
+    const toggleTheme = () => {
+        setThemeMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
+    };
+
     return (
         <ApiContext.Provider value={{ generalSettings, updateGeneralSettings,
-            industrySettings, updateIndustrySettings}}>
+            industrySettings, updateIndustrySettings, themeMode, toggleTheme}}>
             {children}
         </ApiContext.Provider>
     );
