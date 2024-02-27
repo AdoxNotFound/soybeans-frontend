@@ -111,6 +111,9 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" open={open} color='transparent' elevation={0}>
         <Toolbar>
+        {!open && ( // Ajuste de posición del icono de menú
+            <Box sx={{ width: '50px' }} />
+          )}
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -119,22 +122,24 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
             sx={{ mr: 2, ...(open && { display: 'none' }) }} >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-          </Typography>
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}></Typography>
           <Typography sx={{marginRight: 1}}>{generalSettings.username}</Typography>
           <Avatar alt='industry logo' src='src/assets/iol_logo.jpeg'/>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} >
         <DrawerHeader>
-        
           <img src='/green_logo.svg' alt='RIQS logo' width={40}/>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+          {open && ( // Mostrar imagen del logo y ocultar el Typography
+            <React.Fragment>
+              <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             RIQS
           </Typography>
           <IconButton onClick={handleDrawerClose} sx={{ color: 'inherit' }}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
+            </React.Fragment>
+          )}
         </DrawerHeader>
         <Divider />
         <List>

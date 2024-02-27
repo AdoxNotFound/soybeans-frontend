@@ -17,7 +17,14 @@ const LoginForm = ({ handleSubmit, setUsername, setPassword }) => {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', margin:'10px'}}>
+        <img src='/green_logo.svg' alt='RIQS logo' width={150}/>
+        <Typography variant='h1'>
+          RIQS
+        </Typography>
+        </Box>
+        
+        <Typography variant="h4" >
           Iniciar sesion
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
