@@ -1,9 +1,9 @@
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ReportsIcon from '@mui/icons-material/Description';
-import CorrectionsIcon from '@mui/icons-material/Report';
-import HomeIcon from '@mui/icons-material/Home';
-import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/SettingsRounded';
+import LogoutIcon from '@mui/icons-material/LogoutRounded';
+import ReportsIcon from '@mui/icons-material/DescriptionRounded';
+import CorrectionsIcon from '@mui/icons-material/ReportRounded';
+import HomeIcon from '@mui/icons-material/HomeRounded';
+import PersonIcon from '@mui/icons-material/PersonRounded';
 
 export const UserTypes = ['administrador', 'industria', 'supervisor', 'gremio', 'control'];
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
+import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -15,49 +15,35 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useApiContext } from '../context/ApiContext';
 import LogoutHandler from '../../helpers/LogoutHandler';
+import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import useToken from '../../services/useToken';
+import ToggleThemeButton from './ToggleThemeButton';
 
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
   }),
-);
+  overflowX: 'hidden',
+});
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -67,6 +53,41 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+);
 
 export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
 
@@ -84,7 +105,6 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
   const { generalSettings} = useApiContext();
   const {tokens, clearTokens } = useToken(); 
   const navigate = useNavigate(); // Obtiene la función navigate
-
   const handleLogout = LogoutHandler( tokens,  clearTokens, navigate);
 
   return (
@@ -96,59 +116,57 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
+            sx={{ mr: 2, ...(open && { display: 'none' }) }} >
             <MenuIcon />
           </IconButton>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Sistema de registro de formularios quincenales
           </Typography>
           <Typography sx={{marginRight: 1}}>{generalSettings.username}</Typography>
-          <AccountCircle />
+          <Avatar alt='industry logo' src='src/assets/iol_logo.jpeg'/>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
+      <Drawer variant="permanent" open={open} >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+        
+          <img src='/green_logo.svg' alt='RIQS logo' width={40}/>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            RIQS
+          </Typography>
+          <IconButton onClick={handleDrawerClose} sx={{ color: 'inherit' }}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           {items.map((text, index) => (
-            <ListItem key={text} disablePadding>
+            <ListItem key={text} disablePadding sx={{ display: 'block'}}>
               <ListItemButton onClick={() => {
                 if (text === 'Cerrar Sesión') {
                   handleLogout();
                 } else {
                   console.log('Navegando a:');
                 }
+              }} sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
               }}>
-                <ListItemIcon>
+                <ListItemIcon sx={{ color: 'inherit', minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center', }}>
                   {icons[index]}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+        <ToggleThemeButton/>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-          {SelectedPage}
-      </Main>
+    <DrawerHeader />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {SelectedPage}
+      </Box>
     </Box>
   );
 }

@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { setupRequestInterceptor, setupResponseInterceptor } from './services/axiosInterceptors';
 import axiosInstance from './services/axiosInstance';
 import AppRoutes from './components/routes/AppRoutes';
-import ToggleThemeButton from './components/common/ToggleThemeButton';
 
 function App() {
 
@@ -24,7 +23,6 @@ function App() {
   return (
     <div className='app'>
         <AppRoutes />
-        <ToggleThemeButton />
           {/*<AutoLogout logoutTime={logoutTime}/>*/}
     </div>
   );

@@ -30,7 +30,8 @@ export default function IndustryFormTable() {
       ];
 
     return(
-        <TableContainer component={Paper} sx={{ width: '100%', maxWidth: 1000 }}>
+        <TableContainer component={Paper} sx={{ width: '100%', maxWidth: 1000 }}
+        variant="outlined">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

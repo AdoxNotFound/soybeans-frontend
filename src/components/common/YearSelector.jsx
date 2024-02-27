@@ -22,6 +22,7 @@ export default function YearSelector({ yearList }) {
           value={selectedYear}
           label="Year"
           onChange={handleChange}
+          
         >
           {yearList.map((year) => (
             <MenuItem key={year} value={year}>
