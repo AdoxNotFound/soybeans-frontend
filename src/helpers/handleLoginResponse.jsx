@@ -1,5 +1,6 @@
 
 import { userLogin } from '../services/authService';
+import { UserTypes } from './UserTypes';
 
 const handleLoginResponse = (response, setTokens, updateSettings, navigate) => {
   if (response && response.data) {
@@ -15,7 +16,12 @@ const handleLoginResponse = (response, setTokens, updateSettings, navigate) => {
         isLoggedIn: true,
       });
   
-      navigate('/home');
+      if (data.data.user.role === UserTypes[0]) {
+        return navigate('/admin');
+      } else if (data.data.user.role === UserTypes[1]) {
+        return navigate('/industry');
+      }
+
     } else {
       console.error('La respuesta no contiene token o user.');
     }

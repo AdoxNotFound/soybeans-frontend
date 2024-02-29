@@ -13,7 +13,7 @@ export default function DaysCounter( {currentDate} ) {
 
     function handleClick(event) {
 
-        navigate('/industry');
+        navigate('/industry/new-form');
       }
 
     return (

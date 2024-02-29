@@ -21,6 +21,7 @@ import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import useToken from '../../services/useToken';
 import ToggleThemeButton from './ToggleThemeButton';
+import { UserItems, UserIcons } from '../../helpers/UserTypes';
 
 const drawerWidth = 240;
 
@@ -89,7 +90,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
+export default function PersistentDrawerLeft({ SelectedPage }) {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -102,14 +103,14 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
     setOpen(false);
   };
 
-  const { generalSettings} = useApiContext();
+  const { generalSettings } = useApiContext();
   const {tokens, clearTokens } = useToken(); 
   const navigate = useNavigate(); // Obtiene la función navigate
   const handleLogout = LogoutHandler( tokens,  clearTokens, navigate);
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open} color='transparent' elevation={0}>
+      <AppBar position="fixed" open={open} color='transparent' elevation={0} >
         <Toolbar>
         {!open && ( // Ajuste de posición del icono de menú
             <Box sx={{ width: '50px' }} />
@@ -143,7 +144,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
         </DrawerHeader>
         <Divider />
         <List>
-          {items.map((text, index) => (
+          {UserItems[generalSettings.role].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block'}}>
               <ListItemButton onClick={() => {
                 if (text === 'Cerrar Sesión') {
@@ -159,7 +160,7 @@ export default function PersistentDrawerLeft({ SelectedPage, items, icons}) {
                 <ListItemIcon sx={{ color: 'inherit', minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center', }}>
-                  {icons[index]}
+                  {UserIcons[generalSettings.role][index]}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>

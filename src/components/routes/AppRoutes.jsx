@@ -5,24 +5,31 @@ import AdminHomePage from '../../pages/AdminHomePage';
 import IndustryFormPage from '../../pages/IndustryFormPage';
 import PrivateRoute from './PrivateRoute';
 import IndustryRoute from './IndustryRoute';
-import HomePage from '../../pages/HomePage';
+import DrawerBar from '../common/Appbar';
+import IndustryDashboard from '../../pages/IndustryDashboard';
 
 const AppRoutes = () => {
     return (
     <BrowserRouter>
     <Routes>
         <Route path='/' element={ <LoginPage /> } />
-        <Route path='/home' element={
-            <PrivateRoute>
-                <HomePage />
-            </PrivateRoute> } />
         <Route path='/admin' element={
             <PrivateRoute>
-                <AdminHomePage />
+                <DrawerBar 
+                SelectedPage={<AdminHomePage />}>
+               </DrawerBar>
             </PrivateRoute> } />
         <Route path='/industry' element={
             <IndustryRoute>
-                <IndustryFormPage />
+                <DrawerBar 
+                SelectedPage={<IndustryDashboard />}>
+                </DrawerBar>
+            </IndustryRoute> } />
+            <Route path='/industry/new-form' element={
+            <IndustryRoute>
+                <DrawerBar 
+                SelectedPage={<IndustryFormPage />}>
+                </DrawerBar>
             </IndustryRoute> } />
         <Route path='/*' element={<LoginPage />} />
     </Routes>

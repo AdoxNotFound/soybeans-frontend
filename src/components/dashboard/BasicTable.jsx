@@ -1,141 +1,113 @@
 import React, { useState, useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import Dataset from '../layout/DataExample';
-import { Declared, NotDeclared, LateDeclared, Blocked, DeclarationEnabled, Observed } from './Icons';
+import Button from '@mui/material/Button';
+import { BiweekelyStatusIcon } from './Icons';
 
-const statusIcons = {
-  "Declarada": <Declared size={20}/>,
-  "Sin Declarar": <NotDeclared size={20}/>,
-  "Fuera de Tiempo": <LateDeclared size={20}/>,
-  "No Disponible": <Blocked size={20}/>,
-  "En Curso": <DeclarationEnabled size={20}/>,
-  "Observada": <Observed size={20}/>
+const newStatusIcons = {
+  "Declarada": <BiweekelyStatusIcon size={20} 
+                    color={'green'}/>,
+  "Sin Declarar": <BiweekelyStatusIcon size={20} 
+                    color={'red'}/>,
+  "Fuera de Tiempo": <BiweekelyStatusIcon size={20}
+                   color={'orange'}/>,
+  "No Disponible": <BiweekelyStatusIcon size={20} 
+                   color={'lightslategray'}/>,
+  "En Curso": <BiweekelyStatusIcon size={20} 
+                    color={'white'}/>,
+  "Observada": <BiweekelyStatusIcon size={20}
+                    color={'lightskyblue'}/>
 };
 
+const renderTypographyIfNotNull = (field, text) => {
+  if (field !== null && field !== undefined) {
+    return (
+      <Typography variant="body2">
+        {`${text}: ${field} TM`}
+      </Typography>
+    );
+  }
+  return null;
+};
+
+const ModalContent = ({ data, onClose }) => (
+  <Box sx={{ position: 'absolute', 
+          top: '50%', 
+          left: '50%', 
+          transform: 'translate(-50%, -50%)', 
+          bgcolor: 'background.paper', 
+          p: 4,
+          width: 300 }}>
+    <Typography variant="body1" >
+      {`Quincena ${data.quincena}, Mes ${data.mes}, Año ${data.gestion}`}
+      </Typography>
+    <Typography variant="body1">
+      {`Estado: ${data.Estado}`}
+      </Typography>
+      {renderTypographyIfNotNull(data['Acopio_TM'], 'Acopio')}
+      {renderTypographyIfNotNull(data['Grano_recibido_TM'], 'Grano Recibido')}
+      {renderTypographyIfNotNull(data['HS_TM'], 'Harina de Soya')}
+      {renderTypographyIfNotNull(data['CS_TM'], 'Cascarilla de Soya')}
+      {renderTypographyIfNotNull(data['ACS_TM'], 'Aceite Crudo de Soya')}
+      {renderTypographyIfNotNull(data['ARS_TM'], 'Aceite Refinado de Soya')}
+    <Box sx={{display: 'flex',
+          justifyContent:'center',
+          mt: 2}}>  
+    <Button variant='contained' onClick={onClose}>Cerrar</Button>
+    </Box>
+  </Box>
+);
+
 export default function BasicTable() {
-  const [rows, setRows] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [popperData, setPopperData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  useEffect(() => {
-    // Crear dos filas para las dos quincenas
-    const firstRow = createRow(1, Dataset.filter(item => item.quincena === 1));
-    const secondRow = createRow(2, Dataset.filter(item => item.quincena === 2));
-    setRows([firstRow, secondRow]);
-  }, []);
+  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                   'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const getStatusIcon = (status, item) => (
+    <div onClick={() => handleOpenModal(item)}>
+      {newStatusIcons[status]}
+    </div>
+  );
 
-  const createRow = (quincena, data) => {
-    //esta función sirve para armar la información del popper, pero se debe modificar cuando los formularios de la empresa sean diferentes
-    const rowData = { quincena };
-    for (let i = 1; i <= 12; i++) {
-      const monthData = data.find(item => item.mes === i);
-      if (monthData) {
-        const acopio = monthData.Acopio_TM !== null ? monthData.Acopio_TM.toString() : null;
-        const granoRecibido = monthData.Grano_recibido_TM !== null ? monthData.Grano_recibido_TM.toString() : null;
-        rowData[`mes${i}`] = { estado: monthData.Estado, quincena, mes: i, acopio, granoRecibido };
-      } else {
-        rowData[`mes${i}`] = { estado: '', quincena, mes: i };
-      }
-    }
-    return rowData;
+  const handleOpenModal = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
   };
 
-  const handleMouseEnter = (event, data) => {
-    setAnchorEl(event.currentTarget);
-    setPopperData(data);
-  
+  const handleCloseModal = () => {
+    setSelectedItem(null);
+    setIsModalOpen(false);
   };
-
-  const handleMouseLeave = () => {
-    // Aquí puedes realizar cualquier acción cuando se retira el mouse de una celda
-    setAnchorEl(null);
-    setPopperData(null);
-  };
-
-  const open = Boolean(anchorEl);
 
   return (
-    <TableContainer component={Paper} variant="outlined" square={false} 
-    sx={{ maxWidth: 750 }}>
-      <Table aria-label="simple table" size='small'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Quincena</TableCell>
-            <TableCell>Ene</TableCell>
-            <TableCell>Feb</TableCell>
-            <TableCell>Mar</TableCell>
-            <TableCell>Abr</TableCell>
-            <TableCell>May</TableCell>
-            <TableCell>Jun</TableCell>
-            <TableCell>Jul</TableCell>
-            <TableCell>Ago</TableCell>
-            <TableCell>Sep</TableCell>
-            <TableCell>Oct</TableCell>
-            <TableCell>Nov</TableCell>
-            <TableCell>Dic</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, rowIndex) => (
-            <TableRow
-              key={rowIndex}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row" sx={{width: '50px'}}>
-                {row.quincena}
-              </TableCell>
-              {Object.values(row).slice(1).map((data, index) => (
-                <TableCell
-                  key={`${rowIndex}-${index}`}
-                  align="right"
-                  onMouseEnter={(event) => handleMouseEnter(event, data)}
-                  onMouseLeave={handleMouseLeave}
-                  sx={{width: '50px'}}
-                >
-                    {statusIcons[data.estado]}
-                  </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Popper
-        open={open}
-        anchorEl={anchorEl}
-        placement="bottom"
-        transition
-        disablePortal
-      >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              {popperData && (
-                <>
-                <Typography sx={{ p: 2 }}>
-                  {`Quincena ${popperData.quincena}, Mes ${popperData.mes}`}
-                  </Typography>
-              {popperData.estado &&
-               <Typography variant="body2">{`Estado: ${popperData.estado}`}</Typography>}
-              {popperData.acopio && 
-              <Typography variant="body2">{`Acopio: ${popperData.acopio} TM`}</Typography>}
-              {popperData.granoRecibido && 
-              <Typography variant="body2">{`Grano Recibido: ${popperData.granoRecibido} TM`}</Typography>}
-              </>
-              )}
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+    <div>
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        {months.map((month, index) => (
+          <Box key={index} sx={{ display: 'flex', width: '55px',
+              flexDirection: 'column', alignItems: 'center'
+              }}>
+            <Typography variant='h6'>{month}</Typography>
+            <Box sx={{ display: 'flex', width: '55px',
+              flexDirection: 'row', justifyContent: 'space-around'
+              }}>
+              {Dataset.map((item, dataIndex) => {
+                  if (item.mes === index + 1) {
+                    return getStatusIcon(item.Estado, item);
+                  }
+                  return null;
+              })}
+            </Box>
+          </Box>
+        ))}
+      </Box>
 
-    </TableContainer>
+      {/* Modal para mostrar detalles del elemento */}
+      <Modal open={isModalOpen} onClose={handleCloseModal}>
+        <ModalContent data={selectedItem} onClose={handleCloseModal} />
+      </Modal>
+    </div>
   );
 }
