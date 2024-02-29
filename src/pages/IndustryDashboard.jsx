@@ -19,16 +19,13 @@ const IndustryDashboard = () => {
   return (
     <Grid container spacing={1} direction="column"> 
       {/* Primera fila */}
-      <Grid item xs={12} sx={{ mt: '50px'}}>
+      <Grid item xs={12} sx={{ mt: '50px',
+    display: 'flex', flexDirection: 'row',
+    alignItems: 'center', justifyContent: 'space-evenly'}}>
         <IndustryAnualSumm availableYears={industrySettings.availableYears} />
+        <DaysCounter currentDate={industrySettings.startDate} />
       </Grid>
       {/* Segunda fila */}
-      <Grid item xs={12}>
-        <Box sx={{ display: 'flex', flexDirection: 'row',
-                  alignItems: 'center', justifyContent: 'space-evenly'}}>
-          <DaysCounter currentDate={industrySettings.startDate} />
-        </Box>
-      </Grid>
       <Grid item xs={12}>
         <Box sx={{ display: 'flex', flexDirection: 'column',
                     alignItems: 'center', rowGap: 3, m: 2}}>
@@ -44,10 +41,6 @@ const IndustryDashboard = () => {
           <BasicBars yAxisLabel="(TM)" xAxisLabel="Periodo"
                      seriesDataKey="Grano_recibido_TM" seriesLabel="Grano recibido"/>
         </Box>
-      </Grid>
-      {/* Cuarta fila */}
-      <Grid item xs={12}>
-      {/* Aquí puedes agregar tus otras gráficas */}
       </Grid>
     </Grid>
   )
